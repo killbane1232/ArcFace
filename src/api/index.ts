@@ -1,10 +1,13 @@
-export {UserService} from './api-services';
+export {UserService, StrategyService, IndicatorService} from './api-services';
 export type {
-    RegisterRequest,
-    RegisterResponse,
-    LoginRequest,
-    LoginResponse,
-    UpdateRequest,
-    UpdateResponse,
-    User,
+    LoginRequest, StrategyResponse, IndicatorResponse
 } from './api-services';
+export type {
+    Indicator
+} from './Indicator'
+export type {
+    Strategy
+} from './Strategy'
+export type {
+    StrategyIndicator
+} from './StrategyIndicator'
