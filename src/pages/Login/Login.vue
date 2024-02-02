@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import {UserService} from '@/api'
+import { getSHA256Hash }  from 'boring-webcrypto-sha256';
 export default {
   name: 'Login',
   data () {
@@ -35,13 +36,16 @@ export default {
   methods: {
     async login () {
       if (this.username !== '' && this.password !== '') {
-        const res = await UserService.login({login: this.username, hash: this.username + this.password})
-        if (res.error === null && res.message === 'success') {
-          this.$emit('authenticated', true);
-          this.$router.push('/home');
-        } else {
-          console.log('The username and / or password is incorrect')
-        }
+          getSHA256Hash(this.username + this.password).then((x)=>{
+            UserService.login({login: this.username, hash: x}).then(res=>{
+            if (res.error === null && res.message === 'success') {
+              this.$emit('authenticated', true);
+              this.$router.push('/home');
+            } else {
+              console.log('The username and / or password is incorrect')
+            }
+          })
+        })
       } else {
         console.log('A username and password must be present')
       }

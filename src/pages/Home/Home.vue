@@ -3,11 +3,12 @@
     <StrategyCard 
     v-for="strat in $data.strats"
     :key="strat.id"
+    :id="strat.id"
     :name="strat.name"
     :pair="strat.pairId + ''"
     :timing="strat.timingId + ''"
     />
-    <v-btn v-on:click.native="refresh()" v-text='refreshText'/>
+    <v-btn v-on:click.native="refresh()"> Refresh </v-btn>
   </div>
 </template>
 
@@ -21,11 +22,6 @@ export default {
   data() {
     return {
       strats : new Array<Strategy>()
-    }
-  },
-  computed: {
-    refreshText():String{
-      return 'Refresh';
     }
   },
   methods : {

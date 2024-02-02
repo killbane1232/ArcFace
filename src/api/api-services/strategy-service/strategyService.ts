@@ -15,8 +15,8 @@ class _StrategyService {
 
         return response.data;
     }
-    async get(body: Strategy): Promise<StrategyResponse> {
-        const response: AxiosResponse = await userServiceInstance.get('/strategy/' + body.Id);
+    async get(body: Number): Promise<StrategyResponse> {
+        const response: AxiosResponse = await userServiceInstance.get('/strategy/' + body);
 
         return response.data;
     }
@@ -30,8 +30,8 @@ class _StrategyService {
 
         return response.data;
     }
-    async delete(body: Strategy): Promise<StrategyResponse> {
-        const response: AxiosResponse = await userServiceInstance.delete('/strategy/' + body.Id);
+    async delete(body: Number): Promise<StrategyResponse> {
+        const response: AxiosResponse = await userServiceInstance.delete('/strategy/' + body);
 
         return response.data;
     }

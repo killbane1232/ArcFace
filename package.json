@@ -10,6 +10,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "axios": "^1.4.0",
+    "boring-webcrypto-sha256": "^1.0.0",
     "roboto-fontface": "*",
     "vue": "^3.2.47",
     "vue-components-ide-helper": "^1.1.0",

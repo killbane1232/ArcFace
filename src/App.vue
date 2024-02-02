@@ -19,6 +19,7 @@ export default {
     }
   },
   mounted () {
+    this.authenticated = this.$cookies.isKey("token");
     if (!this.authenticated) {
       this.$router.push('/login')
     }

@@ -11,3 +11,6 @@ export type {
 export type {
     StrategyIndicator
 } from './StrategyIndicator'
+export type {
+    InputField
+} from './InputField'
