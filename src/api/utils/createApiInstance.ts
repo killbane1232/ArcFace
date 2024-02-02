@@ -3,7 +3,7 @@ import router from "@/router";
 
 export default function createApiInstance(API_URL: string): AxiosInstance {
     const instanceConfig: CreateAxiosDefaults = {
-        // withCredentials: true,
+        withCredentials: true,
         baseURL: API_URL
     };
 

@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import {UserService} from '../../api'
+import {UserService} from '@/api'
 export default {
   name: 'Login',
   data () {
@@ -37,8 +37,8 @@ export default {
       if (this.username !== '' && this.password !== '') {
         const res = await UserService.login({login: this.username, hash: this.username + this.password})
         if (res.error === null && res.message === 'success') {
-          this.$emit('authenticated', true)
-          this.$router.push('/home')
+          this.$emit('authenticated', true);
+          this.$router.push('/home');
         } else {
           console.log('The username and / or password is incorrect')
         }

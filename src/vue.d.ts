@@ -14,4 +14,4 @@ new Vue({
   router: router,
   components: { App },
   template: '<App/>'
-})
+}).use(VueCookies, {expires: '7d'})

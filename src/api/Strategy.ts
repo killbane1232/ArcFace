@@ -1,13 +1,13 @@
 import { StrategyIndicator } from "./StrategyIndicator";
 
 export interface Strategy {
-  Id: number;
-  Name: string;
-  IsPublic: boolean;
-  PairId: number;
-  TimingId: number;
-  IsLong: boolean;
-  IsShort: boolean;
-  Leverage: number;
-  StrategyIndicators: StrategyIndicator[];
+  id: number;
+  name: string;
+  isPublic: boolean;
+  pairId: number;
+  timingId: number;
+  isLong: boolean;
+  isShort: boolean;
+  leverage: number;
+  strategyIndicators: StrategyIndicator[];
 }

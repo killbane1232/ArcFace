@@ -1,28 +1,43 @@
 <template>
   <div class="hello">
     <StrategyCard 
-    v-for="strat in strats"
-    :key="strat.Id"
-    :name="strat.Name"
-    :pair="strat.PairId + ''"
-    :timing="strat.TimingId + ''"
+    v-for="strat in $data.strats"
+    :key="strat.id"
+    :name="strat.name"
+    :pair="strat.pairId + ''"
+    :timing="strat.timingId + ''"
     />
+    <v-btn v-on:click.native="refresh()" v-text='refreshText'/>
   </div>
 </template>
 
 <script lang="ts">
-import { Strategy } from "@/api";
+import { Strategy, StrategyService } from "@/api";
 import StrategyCard from "./submodules/StrategyCard.vue"
 
 export default {
   name: "StrategyContent",
   components: {StrategyCard},
-  props: {
-    strats: {
-      type: Array<Strategy>,
-      default: []
+  data() {
+    return {
+      strats : new Array<Strategy>()
     }
   },
+  computed: {
+    refreshText():String{
+      return 'Refresh';
+    }
+  },
+  methods : {
+    refresh() {
+    StrategyService.getAll()
+      .then(response => (this.strats = response.data));
+    }
+  },
+  mounted() {
+    StrategyService.getAll()
+      .then(response => (this.strats = response.data));
+  }
 }
 
 </script>

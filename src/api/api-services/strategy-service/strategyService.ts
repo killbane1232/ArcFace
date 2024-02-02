@@ -5,13 +5,13 @@ import {
 } from "./types";
 import { Strategy } from "@/api/Strategy";
 
-const API_URL = import.meta.env.VITE_API_USERS_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const userServiceInstance: AxiosInstance = createApiInstance(API_URL);
 
 class _StrategyService {
     async getAll(): Promise<StrategyResponse> {
-        const response: AxiosResponse = await userServiceInstance.post('/strategy');
+        const response: AxiosResponse = await userServiceInstance.get('/strategy');
 
         return response.data;
     }

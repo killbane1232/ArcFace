@@ -6,7 +6,7 @@ import {
 import { StrategyIndicator } from "@/api/StrategyIndicator";
 import { BaseResponse } from "@/api/utils/baseResponse";
 
-const API_URL = import.meta.env.VITE_API_USERS_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const indicatorServiceInstance: AxiosInstance = createApiInstance(API_URL);
 

@@ -2,13 +2,15 @@
   <div id="app">
     <img src="./assets/logo.png">
     <div id="nav">
-      <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+      <v-btn v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</v-btn>
     </div>
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
 
 <script lang="ts">
+import { UserService } from './api';
+
 export default {
   name: 'App',
   data () {
@@ -22,12 +24,12 @@ export default {
     }
   },
   methods: {
-    setAuthenticated () {
-      this.authenticated = this.$cookies.isKey('user-token')
+    setAuthenticated (value: boolean) {
+      this.authenticated = value;
     },
     logout () {
-      this.authenticated = false
-      this.$cookies.remove('user-token')
+      this.authenticated = false;
+      UserService.logout();
     }
   }
 }
