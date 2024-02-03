@@ -9,8 +9,10 @@
     <InputFieldCard
     v-for="field in inputFields"
     :key="field.indicatorFieldId"
+    :fieldId="field.indicatorFieldId"
     :name="field.name"
     :value="field.floatValue?field.floatValue:field.intValue"
+    ref="data2"
     />
     <v-spacer></v-spacer>
   </div>
@@ -26,6 +28,10 @@ export default {
   components: {InputFieldCard},
   props: {
     id: {
+      type: Number,
+      default: 0
+    },
+    stratId: {
       type: Number,
       default: 0
     },
@@ -52,6 +58,23 @@ export default {
     refresh() {
     StrategyService.get(this.id)
       .then(response => (this.data = response.data[0].strategyIndicators));
+    },
+    save() {
+      var si : StrategyIndicator = {
+        id : this.id,
+        strategyId : this.stratId,
+        indicatorId : null,
+        indicator : null,
+        isExit : this.isExit,
+        name : this.name,
+        inputFields : []
+      }
+      for (var i in this.inputFields) {
+        var res = ((this.$refs['data2'] as any)[i].save() as (InputField | null));
+        if (res != null)
+          si.inputFields.push(res);
+      }
+      return si;
     }
   },
 }

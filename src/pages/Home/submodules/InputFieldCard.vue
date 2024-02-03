@@ -4,16 +4,28 @@
       {{ name }}
     </li >
     <li class="input_field_card__value">
-      {{ value }}
+    <v-text-field
+  v-model="newValue"
+  hide-details
+  single-line
+  type="number"/>
     </li >
+    <li>
+      <v-btn v-on:click.native="undo">
+        Undo
+      </v-btn>
+    </li>
   </div>
 </template>
 
 <script lang="ts">
+import { InputField } from '@/api';
+
+
 export default {
   name: 'InputFieldCard',
   props: {
-    id: {
+    fieldId: {
       type: Number,
       default: 0
     },
@@ -24,6 +36,28 @@ export default {
     value: {
       type: Number,
       default: false
+    }
+  },
+  methods: {
+    undo() {
+      this.newValue = this.value;
+    },
+    save() {
+      if ((Math.abs(Math.round(this.newValue) - this.value) > 0.01)) {
+        var res : InputField = {
+          indicatorFieldId : this.fieldId,
+          name : this.name,
+          intValue : Math.round(this.newValue),
+          floatValue : (Math.abs(Math.round(this.newValue) - this.newValue) > 0.01 ? this.newValue : null)
+        }
+        return res;
+      }
+      return null;
+    }
+  },
+  data() {
+    return {
+      newValue: this.value
     }
   }
 }

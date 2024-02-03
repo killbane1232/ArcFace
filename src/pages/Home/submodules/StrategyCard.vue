@@ -22,12 +22,22 @@
           <StrategyIndicatorCard 
             v-for="stratI in data"
             :key="stratI.id"
+            :id="stratI.id"
             :name="stratI.name"
             :isExit="stratI.isExit"
-            :inputFields="stratI.inputFields"/>
+            :inputFields="stratI.inputFields"
+            :stratId="stratI.strategyId"
+            ref="data"/>
+    <li>
           <v-card-actions>
             <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>
           </v-card-actions>
+    </li >
+    <li>
+          <v-card-actions>
+            <v-btn color="primary" block @click="dialog = false; save()">Save</v-btn>
+          </v-card-actions>
+    </li >
         </v-card>
       </v-dialog>
     </li></ul>
@@ -35,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { StrategyIndicator } from '@/api';
+import { Strategy, StrategyIndicator } from '@/api';
 import StrategyService from '@/api/api-services/strategy-service/strategyService';
 import StrategyIndicatorCard  from './StrategyIndicatorCard.vue';
 export default {
@@ -66,6 +76,23 @@ export default {
     }
   },
   methods : {
+    save() {
+      var strat :Strategy = {
+        id: this.id,
+        name: this.name,
+        pairId: null,
+        isPublic: null,
+        timingId: null,
+        isLong: null,
+        isShort: null,
+        leverage: null,
+        strategyIndicators: []
+      };
+      for(var i in this.data) {
+        strat.strategyIndicators?.push((this.$refs['data'] as any)[i].save() as StrategyIndicator);
+      }
+      StrategyService.patch(strat);
+    },
     getIndicators() {
       StrategyService.get(this.id)
         .then(response => {
