@@ -1,0 +1,1 @@
+export type { PairResponse } from './pairTypes';

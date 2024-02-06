@@ -1,14 +1,23 @@
 <template>
   <div class="hello">
     <StrategyCard 
-    v-for="strat in $data.strats"
-    :key="strat.id"
-    :id="strat.id"
-    :name="strat.name"
-    :pair="strat.pairId + ''"
-    :timing="strat.timingId + ''"
-    />
+    v-for="strat in strats"
+    :key="strat.id?strat.id:0"
+    :id="strat.id?strat.id:0"
+    :name="strat.name+''"
+    :pair_value="strat.pairId?strat.pairId:0"
+    :timing_value="strat.timingId?strat.timingId:0"
+    :leverage_value="strat.leverage?strat.leverage:0"
+    @on-remove="refresh()"/>
+    <li>
+    <v-text-field v-model="newName" label="Создать новую стратегию"/>
+    </li>
+    <li>
+    <v-btn v-on:click.native="add()"> Add </v-btn>
+    </li>
+    <li>
     <v-btn v-on:click.native="refresh()"> Refresh </v-btn>
+    </li>
   </div>
 </template>
 
@@ -21,13 +30,32 @@ export default {
   components: {StrategyCard},
   data() {
     return {
-      strats : new Array<Strategy>()
+      strats : new Array<Strategy>(),
+      newName : "",
     }
   },
   methods : {
     refresh() {
     StrategyService.getAll()
       .then(response => (this.strats = response.data));
+    },
+    add() {
+      var strat : Strategy = {
+        name : this.newName,
+        isPublic : false,
+        pairId : null,
+        timingId : null,
+        id : 0,
+        isLong : null,
+        isShort : null,
+        leverage : null,
+        strategyIndicators : []
+      }
+      StrategyService.post(strat).then(()=>
+        StrategyService.getAll()
+          .then(response => (this.strats = response.data))
+      )
+    ;
     }
   },
   mounted() {

@@ -4,7 +4,10 @@
       {{ name }}
     </li >
     <li class="strategy_indicator_card__isExit">
-      IsExit: {{ isExit }}
+      <v-checkbox label="IsExit" v-model="isExit"></v-checkbox>
+    </li >
+    <li class="strategy_indicator_card__isExit">
+      <v-btn v-on:click.native="remove()"> Remove </v-btn>
     </li >
     <InputFieldCard
     v-for="field in inputFields"
@@ -19,8 +22,7 @@
 </template>
 
 <script lang="ts">
-import { InputField, StrategyIndicator } from '@/api';
-import StrategyService from '@/api/api-services/strategy-service/strategyService';
+import { IndicatorService, InputField, StrategyIndicator } from '@/api';
 import InputFieldCard from './InputFieldCard.vue'
 
 export default {
@@ -39,25 +41,27 @@ export default {
       type: String,
       default: 'Название индикатора'
     },
-    isExit: {
-      type: Boolean,
-      default: false
-    },
     inputFields: {
       type:Array<InputField>,
       default: null
+    },
+    isExitValue: {
+      type:Boolean,
+      default: false
     }
   },
   data () {
     return {
       dialog: false,
-      data: Array<StrategyIndicator>()
+      data: Array<StrategyIndicator>(),
+      isExit: this.isExitValue
     }
   },
   methods : {
-    refresh() {
-    StrategyService.get(this.id)
-      .then(response => (this.data = response.data[0].strategyIndicators));
+    remove() {
+      IndicatorService.delete(this.id).then(()=>{
+        this.$emit('on-remove');
+      });
     },
     save() {
       var si : StrategyIndicator = {

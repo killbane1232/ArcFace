@@ -21,8 +21,8 @@ class _IndicatorService {
 
         return response.data;
     }
-    async delete(body: StrategyIndicator): Promise<BaseResponse> {
-        const response: AxiosResponse = await indicatorServiceInstance.delete('/indicator/' + body.Id);
+    async delete(body: Number): Promise<BaseResponse> {
+        const response: AxiosResponse = await indicatorServiceInstance.delete('/indicator/' + body);
 
         return response.data;
     }
