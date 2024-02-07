@@ -1,45 +1,26 @@
 <template>
   <div class="strategy_card" >
-    <ul>
-      <li  class="strategy_card__name">
-        {{ name }}
-      </li >
-      <li class="strategy_card__pair">
-        {{ timing_name }}
-      </li >
-      <li class="strategy_card__timing">
-        {{ pair_name }}
-      </li >
-      <li class="strategy_indicator_card__isExit">
-        <v-btn v-on:click.native="remove()"> Remove </v-btn>
-      </li >
-      <li class="strategy_indicator_card__isExit">
-        <v-btn v-on:click.native="test()"> Test </v-btn>
-      </li >
-      <li>
-        <v-btn v-on:click.native="getIndicators()">
-          Setup
-        </v-btn>
+    
+        <div class="strategy_card__name">{{ name }}</div>
+        <v-btn class="strategy_card__remove" v-on:click.native="remove()"> Remove </v-btn>
+        <v-btn class="strategy_card__test" v-on:click.native="test()"> Test </v-btn>
+        <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup"> Edit </v-btn>
         <v-dialog
             v-model="dialog"
             width="75%"
           >
           <v-card>
-            <li  class="strategy_card__name">
+            <div class="strategy_card__name">
               {{ name }}
-            </li >
-            <li class="strategy_card__pair">
-              <v-select v-model="pair" :items="pairs" item-title="name"  item-value="id" label="Pairs"/>
-            </li >
-            <li class="strategy_card__timing">
-              <v-select v-model="timing" :items="timings" item-title="name"  item-value="id" label="Timings"/>
-            </li >
-            <li class="strategy_card__timing">
+            </div >
+            <div class="strategy_card__parameters">
+              <v-select v-model="pair" :items="pairs" item-title="name"  item-value="id" label="Pairs" class="strategy_card__pair"/>
+              <v-select v-model="timing" :items="timings" item-title="name"  item-value="id" label="Timings" class="strategy_card__timing"/>
               <v-text-field v-model="leverage" 
-                hide-details
-                single-line
-                type="number"/>
-            </li >
+                type="number"
+                class="strategy_card__timing"
+                label="Leverage"/>
+            </div>
             <StrategyIndicatorCard 
               v-for="stratI in data"
               :key="stratI.id"
@@ -50,7 +31,7 @@
               :stratId="stratI.strategyId"
               ref="data"
               @on-remove="refresh()"/>
-            <v-btn v-on:click.native="getIndicatorsToAdd()">
+            <v-btn v-on:click.native="getIndicatorsToAdd()" class="strategy_card__add">
               Add
             </v-btn>
             <li>
@@ -65,10 +46,7 @@
             </li >
           </v-card>
         </v-dialog>
-        <v-dialog
-            v-model="dialog_indicator"
-            width="50%"
-        >
+        <v-dialog v-model="dialog_indicator" width="50%">
           <v-card>
             <IndicatorCard 
               v-for="stratI in indicators"
@@ -85,8 +63,6 @@
               </li >
           </v-card>
         </v-dialog>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -125,8 +101,6 @@ export default {
     return {
       dialog: false,
       dialog_indicator: false,
-      dialog_timing: false,
-      dialog_pair: false,
       data: Array<StrategyIndicator>(),
       indicators: Array<Indicator>(),
       timings: Array<Timing>(),
@@ -169,7 +143,6 @@ export default {
     getIndicators() {
       StrategyService.get(this.id)
         .then(response => {
-          console.log(response);
           if (response.error == null) {
             this.data = response.data[0].strategyIndicators
             this.dialog = true
@@ -179,7 +152,6 @@ export default {
     getTimings() {
       TimingService.get()
         .then(response => {
-          console.log(response);
           if (response.error == null) {
             this.timings = response.data
           }
@@ -188,7 +160,6 @@ export default {
     getPairs() {
       PairService.get()
         .then(response => {
-          console.log(response);
           if (response.error == null) {
             this.pairs = response.data
           }
@@ -197,7 +168,6 @@ export default {
     getIndicatorsToAdd() {
       IndicatorService.get()
         .then(response => {
-          console.log(response);
           if (response.error == null) {
             this.indicators = response.data
             this.dialog_indicator = true
@@ -208,22 +178,11 @@ export default {
       this.dialog_indicator = false;
       StrategyService.get(this.id)
         .then(response => {
-          console.log(response);
           if (response.error == null) {
             this.data = response.data[0].strategyIndicators
             this.dialog = true
           }
         });
-    },
-    pairEvent(id:number, name:string) {
-      this.dialog_pair = false;
-      this.pair = id;
-      this.pair_name = name;
-    },
-    timingEvent(id:number, name:string) {
-      this.dialog_timing = false;
-      this.timing = id;
-      this.timing_name = name;
     },
     remove() {
       StrategyService.delete(this.id).then(()=>{
@@ -243,12 +202,15 @@ export default {
         strategyIndicators: []
       };
       TestService.get(strat).then((res)=>{
-        var FILE = window.URL.createObjectURL(res);
-        var docUrl = document.createElement('x') as HTMLAnchorElement;
+        var FILE = URL.createObjectURL(res);
+        var docUrl = document.createElement('a') as HTMLAnchorElement;
+        docUrl.download = 'hamlet.csv';
+        docUrl.style.display = 'none';
         docUrl.href = FILE;
         docUrl.setAttribute('download', 'hamlet.csv');
         document.body.appendChild(docUrl);
         docUrl.click();
+        document.body.removeChild(docUrl);
       })
     }
   },
@@ -273,7 +235,8 @@ a {
 }
 .strategy_card {
   transition: box-shadow 0.3s;
-
+  display: flex;
+  align-items: center;
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
@@ -288,25 +251,66 @@ a {
   &__name {
     font-size: 31px;
     list-style-type: none;
-    flex: 0 0 33.333333%;
-    margin-bottom: 5px;
+  padding:4.75px 0;
+  margin:0px 2px;
+  flex: 0 0 49%;
+  }
+
+  &__remove {
+    line-height: 21px;
+  list-style: none;
+  flex: 0 0 16.33%;
+  margin:0px 2px;
+  padding:10px 0;
+  }
+
+  &__test {
+    line-height: 21px;
+  list-style: none;
+  flex: 0 0 16.33%;
+  margin:0px 2px;
+  padding:10px 0;
+  }
+
+  &__setup {
+    line-height: 21px;
+    list-style: none;
+    flex: 0 0 16.33%;
+  margin:0px 2px;
+    padding:10px 0;
   }
 
   &__timing {
     font-size: 21px;
-    color: gray;
     overflow: hidden;
-  list-style: none;
-  flex: 0 0 33.333333%;
+    list-style: none;
+    flex: 0 0 33.333333%;
   }
 
   &__pair {
-    font-size: 21px;
-    line-height: 21px;
-    color: gray;
-    overflow: hidden;
-  list-style: none;
-  flex: 0 0 33.333333%;
+      font-size: 21px;
+      line-height: 21px;
+      overflow: hidden;
+    list-style: none;
+    flex: 0 0 33.333333%;
+  }
+
+  &__leverage {
+      font-size: 21px;
+      line-height: 21px;
+      overflow: hidden;
+    list-style: none;
+    flex: 0 0 33.333333%;
+  }
+
+  &__parameters {
+    display: flex;
+    align-items: center;
+  }
+
+  &__add {
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }
 </style>

@@ -9,15 +9,11 @@
     :timing_value="strat.timingId?strat.timingId:0"
     :leverage_value="strat.leverage?strat.leverage:0"
     @on-remove="refresh()"/>
-    <li>
-    <v-text-field v-model="newName" label="Создать новую стратегию"/>
-    </li>
-    <li>
-    <v-btn v-on:click.native="add()"> Add </v-btn>
-    </li>
-    <li>
-    <v-btn v-on:click.native="refresh()"> Refresh </v-btn>
-    </li>
+    <div class="footer">
+      <v-text-field class="add" v-model="newName" label="Создать новую стратегию"/>
+      <v-btn class="button" v-on:click.native="add()"> Add </v-btn>
+      <v-btn class="button" v-on:click.native="refresh()"> Refresh </v-btn>
+    </div>
   </div>
 </template>
 
@@ -71,15 +67,21 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 a {
   color: #42b983;
+}
+.footer{
+  display: flex;
+  align-items: center;
+}
+.add {
+  width: 60%;
+  margin:0px 2px;
+  flex: 0 0 49%;
+}
+.button {
+  margin:0px 2px;
+  padding:10px 0;
+  flex: 0 0 24.5%;
 }
 </style>

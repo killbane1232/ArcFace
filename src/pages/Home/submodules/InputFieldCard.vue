@@ -1,20 +1,17 @@
 <template>
   <div class="input_field_card" onclick="dialog = true">
-    <li  class="input_field_card__name">
+    <div  class="input_field_card__name">
       {{ name }}
-    </li >
-    <li class="input_field_card__value">
+    </div >
     <v-text-field
-  v-model="newValue"
-  hide-details
-  single-line
-  type="number"/>
-    </li >
-    <li>
-      <v-btn v-on:click.native="undo">
-        Undo
-      </v-btn>
-    </li>
+      v-model="newValue"
+      hide-details
+      single-line
+      type="number"
+      class="input_field_card__value"/>
+    <v-btn v-on:click.native="undo" class="input_field_card__undo">
+      Undo
+    </v-btn>
   </div>
 </template>
 
@@ -77,6 +74,8 @@ a {
 }
 .input_field_card {
   transition: box-shadow 0.3s;
+  display: flex;
+  align-items: center;
 
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -88,14 +87,21 @@ a {
   &__name {
     font-size: 21px;
     list-style: none;
-    flex: 0 0 33.333333%;
+    flex: 0 0 64%;
+    margin-left: 5px;
     text-align: left;
   }
 
   &__value {
     font-size: 21px;
-    color: gray;
-  flex: 0 0 33.333333%;
+  flex: 0 0 15%;
+    margin-left: 20px;
+    text-align: right;
+  }
+
+  &__undo {
+    font-size: 21px;
+    flex: 0 0 15%;
     margin-left: 20px;
     text-align: right;
   }

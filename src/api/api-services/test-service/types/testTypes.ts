@@ -1,6 +1,5 @@
-import { Timing } from "@/api";
 import { BaseResponse } from "@/api/utils/baseResponse";
 
 export interface TestResponse extends BaseResponse {
-    data: BlobPart[];
+    data: Array<number>;
 }

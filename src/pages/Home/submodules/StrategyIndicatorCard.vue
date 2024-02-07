@@ -1,14 +1,10 @@
 <template>
   <div class="strategy_indicator_card" onclick="dialog = true">
-    <li  class="strategy_indicator_card__name">
-      {{ name }}
-    </li >
-    <li class="strategy_indicator_card__isExit">
-      <v-checkbox label="IsExit" v-model="isExit"></v-checkbox>
-    </li >
-    <li class="strategy_indicator_card__isExit">
-      <v-btn v-on:click.native="remove()"> Remove </v-btn>
-    </li >
+    <div class="strategy_parameters">
+      <div class="strategy_parameters__name">{{ name }}</div>
+      <v-checkbox label="IsExit" v-model="isExit" class="strategy_parameters__isExit"/>
+      <v-btn v-on:click.native="remove()" class="strategy_parameters__isExit"> Remove </v-btn>
+    </div>
     <InputFieldCard
     v-for="field in inputFields"
     :key="field.indicatorFieldId"
@@ -101,21 +97,31 @@ li {
   border-radius: 5px;
   margin-bottom: 5px;
   width: 100%;
+}
+.strategy_parameters {
+  transition: box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  border: 1px solid #f5f5f5;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  width: 100%;
 
   &__name {
     font-size: 31px;
-    list-style: none;
-    flex: 0 0 33.333333%;
+    flex: 0 0 32.333333%;
+    margin-left: 5px;
   }
 
   &__isExit {
     font-size: 21px;
-    color: gray;
-    overflow: hidden;
-    list-style: none;
-    flex: 0 0 33.333333%;
-    text-align: right;
-    margin-right: 0;
+    flex: 0 0 32.333333%;
+    margin-right: 10px;
   }
 }
 </style>

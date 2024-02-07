@@ -1,6 +1,6 @@
 <template>
-  <div class="strategy_indicator_card">
-    <v-btn  class="strategy_indicator_card__name" v-on:click.native="add()">
+  <div class="indicator_card">
+    <v-btn  class="indicator_card__name" v-on:click.native="add()">
       {{ name }}
     </v-btn>
   </div>
@@ -24,12 +24,6 @@ export default {
       type: String,
       default: 'Название индикатора'
     },
-  },
-  data () {
-    return {
-      dialog: false,
-      data: Array<StrategyIndicator>()
-    }
   },
   methods : {
     add() {
@@ -56,7 +50,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-.strategy_indicator_card {
+.indicator_card {
   transition: box-shadow 0.3s;
 
   &:hover {
@@ -72,16 +66,7 @@ li {
     font-size: 31px;
     list-style: none;
     flex: 0 0 33.333333%;
-  }
-
-  &__isExit {
-    font-size: 21px;
-    color: gray;
-    overflow: hidden;
-    list-style: none;
-    flex: 0 0 33.333333%;
-    text-align: right;
-    margin-right: 0;
+  width: 100%;
   }
 }
 </style>

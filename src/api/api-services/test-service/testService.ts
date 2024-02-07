@@ -10,10 +10,10 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 const testServiceInstance: AxiosInstance = createApiInstance(API_URL);
 
 class _TestService {
-    async get(strat: Strategy): Promise<Blob> {
+    async get(strat: Strategy): Promise<File> {
         const response: AxiosResponse = await testServiceInstance.post('/test', strat);
-
-        return new Blob((response.data as TestResponse).data);
+        const bytes = (response.data as TestResponse).data;
+        return new File([String.fromCharCode.apply(String, bytes)], 'Hamlet.csv');
     }
 }
 

@@ -7,6 +7,7 @@
         label="Логин"
         hide-details="auto"
         variant="outlined"
+        :append-icon="'mdi-account'"
     >
   </v-text-field>
     <v-text-field
@@ -14,6 +15,9 @@
         class="auth__input"
         label="Пароль"
         hide-details="auto"
+        :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="() => (value = !value)"
+        :type="value ? 'password' : 'text'"
         variant="outlined"
     ></v-text-field>
         <v-btn
@@ -31,6 +35,7 @@ export default {
     return {
       username: '',
       password: '',
+      value: true
     }
   },
   methods: {
@@ -40,7 +45,7 @@ export default {
             UserService.login({login: this.username, hash: x}).then(res=>{
             if (res.error === null && res.message === 'success') {
               this.$emit('authenticated', true);
-              this.$router.push('/home');
+              this.$router.push('/strategies');
             } else {
               console.log('The username and / or password is incorrect')
             }
