@@ -2,9 +2,9 @@
   <div class="strategy_card" >
     
         <div class="strategy_card__name">{{ name }}</div>
-        <v-btn class="strategy_card__remove" v-on:click.native="remove()"> Remove </v-btn>
+        <v-btn class="strategy_card__remove" v-on:click.native="remove()" :disabled="loading"> Remove </v-btn>
         <v-btn class="strategy_card__test" v-on:click.native="test()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
-        <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup"> Edit </v-btn>
+        <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup" :disabled="loading"> Edit </v-btn>
         <v-dialog
             v-model="dialog"
             width="75%"
@@ -213,6 +213,8 @@ export default {
         document.body.appendChild(docUrl);
         docUrl.click();
         document.body.removeChild(docUrl);
+        this.loading = false;
+      }).catch(()=>{
         this.loading = false;
       })
     }
