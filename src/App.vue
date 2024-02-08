@@ -28,6 +28,8 @@ export default {
     this.authenticated = this.$cookies.isKey("token");
     if (!this.authenticated) {
       this.$router.push('/login')
+    } else {
+      this.$router.push('/strategies')
     }
   },
   methods: {
