@@ -3,7 +3,7 @@
     
         <div class="strategy_card__name">{{ name }}</div>
         <v-btn class="strategy_card__remove" v-on:click.native="remove()"> Remove </v-btn>
-        <v-btn class="strategy_card__test" v-on:click.native="test()"> Test </v-btn>
+        <v-btn class="strategy_card__test" v-on:click.native="test()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
         <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup"> Edit </v-btn>
         <v-dialog
             v-model="dialog"
@@ -109,7 +109,8 @@ export default {
       timing_name: '',
       pair:this.pair_value,
       timing:this.timing_value,
-      leverage:this.leverage_value
+      leverage:this.leverage_value,
+      loading:false
     }
   },
   mounted() {
@@ -201,6 +202,7 @@ export default {
         leverage: this.leverage,
         strategyIndicators: []
       };
+      this.loading = true;
       TestService.get(strat).then((res)=>{
         var FILE = URL.createObjectURL(res);
         var docUrl = document.createElement('a') as HTMLAnchorElement;
@@ -211,6 +213,7 @@ export default {
         document.body.appendChild(docUrl);
         docUrl.click();
         document.body.removeChild(docUrl);
+        this.loading = false;
       })
     }
   },
