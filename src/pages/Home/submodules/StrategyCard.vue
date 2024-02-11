@@ -139,13 +139,23 @@ export default {
     },
     refresh() {
       StrategyService.get(this.id)
-        .then(response => (this.data = response.data[0].strategyIndicators));
+        .then(response => {
+          if (response.error == null) {
+            this.data = response.data[0].strategyIndicators
+            this.data.sort((x,y) => { return ( x.id > y.id ? 1 : -1 ) });
+            this.data.forEach(x=>{
+                x.inputFields.sort((x,y) => { return ( x.indicatorFieldId > y.indicatorFieldId ? 1 : -1 ) });
+            })
+            this.dialog = true
+          }
+        });
     },
     getIndicators() {
       StrategyService.get(this.id)
         .then(response => {
           if (response.error == null) {
             this.data = response.data[0].strategyIndicators
+            this.data.sort((x,y) => { return ( x.id > y.id ? 1 : -1 ) });
             this.data.forEach(x=>{
                 x.inputFields.sort((x,y) => { return ( x.indicatorFieldId > y.indicatorFieldId ? 1 : -1 ) });
             })

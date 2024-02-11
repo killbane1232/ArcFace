@@ -33,7 +33,10 @@ export default {
   methods : {
     refresh() {
     StrategyService.getAll()
-      .then(response => (this.strats = response.data));
+      .then(response => {
+        this.strats = response.data
+        this.strats.sort((x,y) => { return ( x.id == null ? -1 : (y.id == null ? 1 : (x.id > y.id ? 1 : -1 ))) });
+      });
     },
     add() {
       var strat : Strategy = {
@@ -56,7 +59,10 @@ export default {
   },
   mounted() {
     StrategyService.getAll()
-      .then(response => (this.strats = response.data));
+      .then(response => {
+        this.strats = response.data
+        this.strats.sort((x,y) => { return ( x.id == null ? -1 : (y.id == null ? 1 : (x.id > y.id ? 1 : -1 ))) });
+      });
   }
 }
 
