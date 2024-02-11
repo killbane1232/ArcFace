@@ -146,6 +146,9 @@ export default {
         .then(response => {
           if (response.error == null) {
             this.data = response.data[0].strategyIndicators
+            this.data.forEach(x=>{
+                x.inputFields.sort((x,y) => { return ( x.indicatorFieldId > y.indicatorFieldId ? 1 : -1 ) });
+            })
             this.dialog = true
           }
         });
