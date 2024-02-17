@@ -1,6 +1,6 @@
-export {UserService, StrategyService, IndicatorService, PairService, TimingService} from './api-services';
+export {UserService, StrategyService, IndicatorService, PairService, TimingService, AccountService} from './api-services';
 export type {
-    LoginRequest, StrategyResponse, IndicatorResponse, TimingResponse, PairResponse
+    LoginRequest, StrategyResponse, IndicatorResponse, TimingResponse, PairResponse, AccountResponse
 } from './api-services';
 export type {
     Indicator
@@ -20,3 +20,6 @@ export type {
 export type {
     InputField
 } from './InputField'
+export type {
+    Account
+} from './Account'

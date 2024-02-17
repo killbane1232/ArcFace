@@ -4,7 +4,7 @@
       <div class="header">
         <div class="logo"> Arcam </div>
         <v-btn v-if="authenticated" v-on:click.native="$router.push('/strategies')" replace class="button">Strategies</v-btn>
-        <v-btn v-if="authenticated" v-on:click.native="$router.push('/accounts')" disabled replace class="button">Accounts</v-btn>
+        <v-btn v-if="authenticated" v-on:click.native="$router.push('/accounts')" replace class="button">Accounts</v-btn>
         <div class="logout">
           <v-btn v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout <v-icon icon="mdi-logout"/></v-btn>
         </div>

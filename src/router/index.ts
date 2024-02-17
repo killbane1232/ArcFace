@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router"
-import {Login, Home} from "@/pages"
+import {Login, Strategy, Account} from "@/pages"
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/authorization",
@@ -9,7 +9,12 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/strategies",
         name: "strategies",
-        component: Home
+        component: Strategy
+    },
+    {
+        path: "/accounts",
+        name: "accounts",
+        component: Account
     },
     {
         path: '/:catchAll(.*)',

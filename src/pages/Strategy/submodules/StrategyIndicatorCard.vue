@@ -13,7 +13,6 @@
     :value="field.floatValue?field.floatValue:field.intValue"
     ref="data2"
     />
-    <v-spacer></v-spacer>
   </div>
 </template>
 
@@ -82,10 +81,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 .strategy_indicator_card {
   transition: box-shadow 0.3s;
 

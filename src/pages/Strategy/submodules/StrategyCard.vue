@@ -1,68 +1,59 @@
 <template>
   <div class="strategy_card" >
-    
-        <div class="strategy_card__name">{{ name }}</div>
-        <v-btn class="strategy_card__remove" v-on:click.native="remove()" :disabled="loading"> Remove </v-btn>
-        <v-btn class="strategy_card__test" v-on:click.native="test()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
-        <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup" :disabled="loading"> Edit </v-btn>
-        <v-dialog
-            v-model="dialog"
-            width="75%"
-          >
-          <v-card>
-            <div class="strategy_card__name">
-              {{ name }}
-            </div >
-            <div class="strategy_card__parameters">
-              <v-select v-model="pair" :items="pairs" item-title="name"  item-value="id" label="Pairs" class="strategy_card__pair"/>
-              <v-select v-model="timing" :items="timings" item-title="name"  item-value="id" label="Timings" class="strategy_card__timing"/>
-              <v-text-field v-model="leverage" 
-                type="number"
-                class="strategy_card__timing"
-                label="Leverage"/>
-            </div>
-            <StrategyIndicatorCard 
-              v-for="stratI in data"
-              :key="stratI.id"
-              :id="stratI.id"
-              :name="stratI.name"
-              :isExitValue="stratI.isExit"
-              :inputFields="stratI.inputFields"
-              :stratId="stratI.strategyId"
-              ref="data"
-              @on-remove="refresh()"/>
-            <v-btn v-on:click.native="getIndicatorsToAdd()" class="strategy_card__add">
-              Add
-            </v-btn>
-            <li>
-              <v-card-actions>
-                <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>
-              </v-card-actions>
-            </li >
-            <li>
-              <v-card-actions>
-                <v-btn color="primary" block @click="dialog = false; save()">Save</v-btn>
-              </v-card-actions>
-            </li >
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialog_indicator" width="50%">
-          <v-card>
-            <IndicatorCard 
-              v-for="stratI in indicators"
-              :key="stratI.id"
-              :id="stratI.id"
-              :name="stratI.name"
-              :stratId="id"
-              ref="data"
-              @on-add="addEvent()"/>
-              <li>
-                <v-card-actions>
-                  <v-btn color="primary" block @click="dialog_indicator = false">Cancel</v-btn>
-                </v-card-actions>
-              </li >
-          </v-card>
-        </v-dialog>
+    <div class="strategy_card__name">{{ name }}</div>
+    <v-btn class="strategy_card__remove" v-on:click.native="remove()" :disabled="loading"> Remove </v-btn>
+    <v-btn class="strategy_card__test" v-on:click.native="test()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
+    <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup" :disabled="loading"> Edit </v-btn>
+    <v-dialog
+      v-model="dialog"
+      width="75%"
+    >
+      <v-card>
+        <div class="strategy_card__name"> {{ name }} </div >
+        <div class="strategy_card__parameters">
+          <v-select v-model="pair" :items="pairs" item-title="name"  item-value="id" label="Pairs" class="strategy_card__pair"/>
+          <v-select v-model="timing" :items="timings" item-title="name"  item-value="id" label="Timings" class="strategy_card__timing"/>
+          <v-text-field v-model="leverage" 
+            type="number"
+            class="strategy_card__timing"
+            label="Leverage"/>
+        </div>
+        <StrategyIndicatorCard 
+          v-for="stratI in data"
+          :key="stratI.id"
+          :id="stratI.id"
+          :name="stratI.name"
+          :isExitValue="stratI.isExit"
+          :inputFields="stratI.inputFields"
+          :stratId="stratI.strategyId"
+          ref="data"
+          @on-remove="refresh()"/>
+        <v-btn v-on:click.native="getIndicatorsToAdd()" class="strategy_card__add">
+          Add
+        </v-btn>
+        <v-card-actions>
+          <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>
+        </v-card-actions>
+        <v-card-actions>
+          <v-btn color="primary" block @click="dialog = false; save()">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialog_indicator" width="50%">
+      <v-card>
+        <IndicatorCard 
+          v-for="stratI in indicators"
+          :key="stratI.id"
+          :id="stratI.id"
+          :name="stratI.name"
+          :stratId="id"
+          ref="data"
+          @on-add="addEvent()"/>
+        <v-card-actions>
+          <v-btn color="primary" block @click="dialog_indicator = false">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -237,20 +228,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 .strategy_card {
   transition: box-shadow 0.3s;
   display: flex;

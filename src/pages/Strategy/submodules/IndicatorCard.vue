@@ -46,10 +46,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 .indicator_card {
   transition: box-shadow 0.3s;
 

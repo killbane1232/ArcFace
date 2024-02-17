@@ -1,28 +1,25 @@
 <template>
   <v-form ref="loginForm" class="auth">
-        <h1>Login</h1>
-        <v-text-field
-        v-model="username"
-        class="auth__input"
-        label="Логин"
-        hide-details="auto"
-        variant="outlined"
-        :append-icon="'mdi-account'"
-    >
-  </v-text-field>
+    <h1>Login</h1>
     <v-text-field
-        v-model="password"
-        class="auth__input"
-        label="Пароль"
-        hide-details="auto"
-        :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="() => (value = !value)"
-        :type="value ? 'password' : 'text'"
-        variant="outlined"
-    ></v-text-field>
-        <v-btn
-            @click="login()"
-        >Login</v-btn>
+      v-model="username"
+      class="auth__input"
+      label="Логин"
+      hide-details="auto"
+      variant="outlined"
+      :append-icon="'mdi-account'"
+    />
+    <v-text-field
+      v-model="password"
+      class="auth__input"
+      label="Пароль"
+      hide-details="auto"
+      :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+      @click:append="() => (value = !value)"
+      :type="value ? 'password' : 'text'"
+      variant="outlined"
+    />
+    <v-btn @click="login()"> Login </v-btn>
   </v-form>
 </template>
 

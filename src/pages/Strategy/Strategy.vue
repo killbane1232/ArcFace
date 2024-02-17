@@ -52,7 +52,10 @@ export default {
       }
       StrategyService.post(strat).then(()=>
         StrategyService.getAll()
-          .then(response => (this.strats = response.data))
+          .then(response => {
+            this.strats = response.data; 
+            this.strats.sort((x,y) => { return ( x.id == null ? -1 : (y.id == null ? 1 : (x.id > y.id ? 1 : -1 )));
+            });})
       )
     ;
     }
@@ -70,12 +73,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-a {
-  color: #42b983;
-}
 .footer{
   display: flex;
   align-items: center;
