@@ -47,10 +47,15 @@ export default {
   },
   mounted() {
     AccountService.get()
-        .then(response => {
-          this.accs = response.data
-          this.accs.sort((x,y) => { return ( x.name == null ? -1 : (y.name == null ? 1 : (x.name > y.name ? 1 : -1 ))) });
-        });
+      .then(response => {
+        this.accs = response.data
+        this.accs.sort((x,y) => { return (x.name > y.name ? 1 : -1) });
+        StrategyService.getAll().then(res => {
+          this.strats = res.data; 
+          this.strats.sort((x,y) => { return ( x.id == null ? -1 : (y.id == null ? 1 : (x.id > y.id ? 1 : -1 )));
+        })
+      })
+    });
   }
 }
 
