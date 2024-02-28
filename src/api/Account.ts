@@ -1,4 +1,5 @@
 export interface Account {
+   id : number,
    platformId : number,
    strategyId : number | null,
    key : string | null,

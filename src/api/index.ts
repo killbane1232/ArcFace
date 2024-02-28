@@ -1,6 +1,6 @@
-export {UserService, StrategyService, IndicatorService, PairService, TimingService, AccountService} from './api-services';
+export {UserService, StrategyService, IndicatorService, PairService, TimingService, AccountService, CandleService} from './api-services';
 export type {
-    LoginRequest, StrategyResponse, IndicatorResponse, TimingResponse, PairResponse, AccountResponse
+    LoginRequest, StrategyResponse, IndicatorResponse, TimingResponse, PairResponse, AccountResponse, CandleRequest, CandleResponse
 } from './api-services';
 export type {
     Indicator
@@ -23,3 +23,9 @@ export type {
 export type {
     Account
 } from './Account'
+export type {
+    Candle
+} from './Candle'
+export type {
+    IndicatorData, IndicatorDataItem
+} from './IndicatorData'

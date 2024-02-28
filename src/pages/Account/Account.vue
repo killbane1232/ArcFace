@@ -2,7 +2,8 @@
   <div class="hello">
     <AccountCard 
     v-for="strat in accs"
-    :key="strat.name"
+    :key="strat.id"
+    :id="strat.id"
     :platformId="strat.platformId?strat.platformId:0"
     :name="strat.name+''"
     :strategyId="strat.strategyId?strat.strategyId:0"

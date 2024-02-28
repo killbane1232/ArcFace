@@ -4,6 +4,7 @@ export {IndicatorService} from './indicator-service'
 export {PairService} from './pair-service'
 export {TimingService} from './timing-service'
 export {AccountService} from './account-service'
+export {CandleService} from './candles-service'
 export type {
     LoginRequest
 } from './user-service';
@@ -22,3 +23,6 @@ export type {
 export type {
     AccountResponse
 } from './account-service'
+export type {
+    CandleRequest, CandleResponse
+} from './candles-service'

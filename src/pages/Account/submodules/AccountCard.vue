@@ -13,6 +13,10 @@ import { Account, AccountService, Strategy } from '@/api';
 export default {
   name: 'AccountCard',
   props: {
+    id: {
+      type: Number,
+      default: 0
+    },
     name: {
       type: String,
       default: 'Name'
@@ -43,6 +47,7 @@ export default {
   methods : {
     save() {
       var account :Account = {
+        id: this.id,
         platformId: this.platformId,
         name: this.name,
         isActive: (this.isActive == this.newIsActive ? null: this.newIsActive),

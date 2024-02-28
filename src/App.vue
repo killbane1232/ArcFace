@@ -3,6 +3,7 @@
     <header>
       <div class="header">
         <div class="logo"> Arcam </div>
+        <v-btn v-if="authenticated" v-on:click.native="$router.push('/charts')" replace class="button">Charts</v-btn>
         <v-btn v-if="authenticated" v-on:click.native="$router.push('/strategies')" replace class="button">Strategies</v-btn>
         <v-btn v-if="authenticated" v-on:click.native="$router.push('/accounts')" replace class="button">Accounts</v-btn>
         <div class="logout">
@@ -29,7 +30,7 @@ export default {
     if (!this.authenticated) {
       this.$router.push('/login')
     } else {
-      this.$router.push('/strategies')
+      this.$router.push('/charts')
     }
   },
   methods: {
