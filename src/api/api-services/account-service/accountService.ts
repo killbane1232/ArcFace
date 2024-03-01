@@ -25,7 +25,7 @@ class _AccountService {
 
         return response.data;
     }
-    async delete(body: Number): Promise<AccountResponse> {
+    async delete(body: number): Promise<AccountResponse> {
         const response: AxiosResponse = await userServiceInstance.delete('/account/' + body);
 
         return response.data;

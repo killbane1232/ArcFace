@@ -15,7 +15,7 @@ class _StrategyService {
 
         return response.data;
     }
-    async get(body: Number): Promise<StrategyResponse> {
+    async get(body: number): Promise<StrategyResponse> {
         const response: AxiosResponse = await userServiceInstance.get('/strategy/' + body);
 
         return response.data;
@@ -30,7 +30,7 @@ class _StrategyService {
 
         return response.data;
     }
-    async delete(body: Number): Promise<StrategyResponse> {
+    async delete(body: number): Promise<StrategyResponse> {
         const response: AxiosResponse = await userServiceInstance.delete('/strategy/' + body);
 
         return response.data;
