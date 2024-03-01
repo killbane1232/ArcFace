@@ -104,10 +104,6 @@ export default {
       loading:false
     }
   },
-  mounted() {
-    this.getPairs();
-    this.getTimings();
-  },
   methods : {
     save() {
       var strat :Strategy = {
@@ -153,6 +149,8 @@ export default {
             this.dialog = true
           }
         });
+      this.getPairs();
+      this.getTimings();
     },
     getTimings() {
       TimingService.get()
