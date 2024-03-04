@@ -2,10 +2,11 @@
   <div id="app">
     <header>
       <div class="header">
-        <div class="logo"> Arcam </div>
+        <v-btn class="logo" v-on:click.native="toggleTheme()"> Arcam </v-btn>
         <v-btn v-if="authenticated" v-on:click.native="$router.push('/charts')" replace class="button">Charts</v-btn>
         <v-btn v-if="authenticated" v-on:click.native="$router.push('/strategies')" replace class="button">Strategies</v-btn>
         <v-btn v-if="authenticated" v-on:click.native="$router.push('/accounts')" replace class="button">Accounts</v-btn>
+        
         <div class="logout">
           <v-btn v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout <v-icon icon="mdi-logout"/></v-btn>
         </div>
@@ -14,7 +15,20 @@
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
+<script setup lang="ts">
+import { useTheme } from 'vuetify'
+import { ref } from 'vue'
 
+const theme = useTheme()
+var darkMode = localStorage.getItem('is_dark_theme') == 'true';
+theme.global.name.value = darkMode ? "dark" : "light";
+
+function toggleTheme () { 
+  darkMode = !darkMode; 
+  localStorage.setItem("is_dark_theme", darkMode + '');
+  theme.global.name.value = darkMode ? "dark" : "light";
+}
+</script>
 <script lang="ts">
 import { UserService } from './api';
 
