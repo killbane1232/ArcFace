@@ -17,7 +17,6 @@
 </template>
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
-import { ref } from 'vue'
 
 const theme = useTheme()
 var darkMode = localStorage.getItem('is_dark_theme') == 'true';

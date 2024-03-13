@@ -208,10 +208,10 @@ export default {
       TestService.get(strat).then((res)=>{
         var FILE = URL.createObjectURL(res);
         var docUrl = document.createElement('a') as HTMLAnchorElement;
-        docUrl.download = 'hamlet.csv';
+        docUrl.download = 'hamlet.xlsx';
         docUrl.style.display = 'none';
         docUrl.href = FILE;
-        docUrl.setAttribute('download', 'hamlet.csv');
+        docUrl.setAttribute('download', 'hamlet.xlsx');
         document.body.appendChild(docUrl);
         docUrl.click();
         document.body.removeChild(docUrl);
