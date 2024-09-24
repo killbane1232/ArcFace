@@ -3,6 +3,13 @@
     <div class="strategy_card__name">{{ name }}</div>
     <v-btn class="strategy_card__remove" v-on:click.native="remove()" :disabled="loading"> Remove </v-btn>
     <v-btn class="strategy_card__test" v-on:click.native="test()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
+    <v-text-field
+      v-model="newValue"
+      hide-details
+      single-line
+      type="number"
+      class="strategy_card__value"/>
+    <v-btn class="strategy_card__test" v-on:click.native="beautify()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
     <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup" :disabled="loading"> Edit </v-btn>
     <v-dialog
       v-model="dialog"
@@ -101,7 +108,8 @@ export default {
       pair:this.pair_value,
       timing:this.timing_value,
       leverage:this.leverage_value,
-      loading:false
+      loading:false,
+      generationsCnt:0
     }
   },
   methods : {
@@ -219,6 +227,38 @@ export default {
       }).catch(()=>{
         this.loading = false;
       })
+    },
+    beautify() {
+      var strat :Strategy = {
+        id: this.id,
+        name: this.name,
+        pairId: this.pair,
+        isPublic: null,
+        timingId: this.timing,
+        isLong: null,
+        isShort: null,
+        leverage: this.leverage,
+        strategyIndicators: []
+      };
+      this.loading = true;
+      var t = strat.leverage;
+      strat.leverage = this.generationsCnt;
+      TestService.patch(strat).then((res)=>{
+        var FILE = URL.createObjectURL(res);
+        var docUrl = document.createElement('a') as HTMLAnchorElement;
+        docUrl.download = 'hamlet.xlsx';
+        docUrl.style.display = 'none';
+        docUrl.href = FILE;
+        docUrl.setAttribute('download', 'hamlet.xlsx');
+        document.body.appendChild(docUrl);
+        docUrl.click();
+        document.body.removeChild(docUrl);
+        strat.leverage = t;
+        this.loading = false;
+      }).catch(()=>{
+        strat.leverage = t;
+        this.loading = false;
+      })
     }
   },
 }
@@ -294,6 +334,13 @@ export default {
       overflow: hidden;
     list-style: none;
     flex: 0 0 33.333333%;
+  }
+
+  &__value {
+    font-size: 21px;
+  flex: 0 0 15%;
+    margin-left: 20px;
+    text-align: right;
   }
 
   &__parameters {

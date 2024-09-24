@@ -20,6 +20,16 @@ class _TestService {
         }
         return new File([buffer], 'Hamlet.csv');
     }
+    async patch(strat: Strategy): Promise<File> {
+        const response: AxiosResponse = await testServiceInstance.patch('/test', strat);
+        const str = decode((response.data as TestResponse).data);
+        var buffer : ArrayBuffer = new ArrayBuffer(str.length);
+        var view = new Uint8Array(buffer);
+        for (var i = 0; i < str.length; i++) {
+            view[i] = str[i];
+        }
+        return new File([buffer], 'Hamlet.csv');
+    }
 }
 
 const TestService = new _TestService();
