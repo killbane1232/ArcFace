@@ -286,7 +286,7 @@ export default {
     list-style-type: none;
   padding:4.75px 0;
   margin:0px 2px;
-  flex: 0 0 49%;
+  flex: 0 0 30%;
   }
 
   &__remove {
