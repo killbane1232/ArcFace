@@ -9,7 +9,7 @@
       single-line
       type="number"
       class="strategy_card__value"/>
-    <v-btn class="strategy_card__test" v-on:click.native="beautify()" :disabled="loading"> Test <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
+    <v-btn class="strategy_card__test" v-on:click.native="beautify()" :disabled="loading"> Beautify <v-icon  v-if="loading" icon="mdi-timer-sand-empty" /></v-btn>
     <v-btn v-on:click.native="getIndicators()" class="strategy_card__setup" :disabled="loading"> Edit </v-btn>
     <v-dialog
       v-model="dialog"
