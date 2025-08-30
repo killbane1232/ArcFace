@@ -43,7 +43,7 @@ export default function createApiInstance(API_URL: string): AxiosInstance {
                 } catch (error) {
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('refresh_token');
-                    await router.push(`/authorization`);
+                    await router.push(`/arcam/authorization`);
                 }
             }
 

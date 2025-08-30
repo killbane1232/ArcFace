@@ -2,28 +2,28 @@ import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router"
 import {Login, Strategy, Account, Chart} from "@/pages"
 const routes: Array<RouteRecordRaw> = [
     {
-        path: "/authorization",
+        path: "/arcam/authorization",
         name: "authorization",
         component: Login
     },
     {
-        path: "/strategies",
+        path: "/arcam/strategies",
         name: "strategies",
         component: Strategy
     },
     {
-        path: "/accounts",
+        path: "/arcam/accounts",
         name: "accounts",
         component: Account
     },
     {
-        path: "/charts",
+        path: "/arcam/charts",
         name: "charts",
         component: Chart
     },
     {
         path: '/:catchAll(.*)',
-        redirect: '/authorization'
+        redirect: '/arcam/authorization'
     }
 ];
 
