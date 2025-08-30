@@ -3,12 +3,12 @@
     <header>
       <div class="header">
         <v-btn class="logo" v-on:click.native="toggleTheme()"> Arcam </v-btn>
-        <v-btn v-if="authenticated" v-on:click.native="$router.push('/charts')" replace class="button">Charts</v-btn>
-        <v-btn v-if="authenticated" v-on:click.native="$router.push('/strategies')" replace class="button">Strategies</v-btn>
-        <v-btn v-if="authenticated" v-on:click.native="$router.push('/accounts')" replace class="button">Accounts</v-btn>
+        <v-btn v-if="authenticated" v-on:click.native="$router.push('/arcam/charts')" replace class="button">Charts</v-btn>
+        <v-btn v-if="authenticated" v-on:click.native="$router.push('/arcam/strategies')" replace class="button">Strategies</v-btn>
+        <v-btn v-if="authenticated" v-on:click.native="$router.push('/arcam/accounts')" replace class="button">Accounts</v-btn>
         
         <div class="logout">
-          <v-btn v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout <v-icon icon="mdi-logout"/></v-btn>
+          <v-btn v-if="authenticated" to="/arcam/login" v-on:click.native="logout()" replace>Logout <v-icon icon="mdi-logout"/></v-btn>
         </div>
       </div>
     </header>
@@ -41,9 +41,9 @@ export default {
   mounted () {
     this.authenticated = this.$cookies.isKey("token");
     if (!this.authenticated) {
-      this.$router.push('/login')
+      this.$router.push('/arcam/login')
     } else {
-      this.$router.push('/charts')
+      this.$router.push('/arcam/charts')
     }
   },
   methods: {
